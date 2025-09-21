@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -24,6 +24,7 @@
 
     pkgs.nix
     pkgs.which
+    pkgs.nixfmt
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -73,12 +74,11 @@
   home.sessionVariables = {
     PATH = "~/.nix-profile/bin:$PATH";
     MANPATH = "$HOME/.nix-profile/share/man:$(manpath)";
-    # EDITOR = "emacs";
+    EDITOR = "${pkgs.helix}/bin/hx";
   };
 
-
   programs = {
-  # Let Home Manager install and manage itself.
+    # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
     git.enable = true;
@@ -90,7 +90,6 @@
       # generateCaches = true;
     };
   };
-
 
   imports = [
     ./helix.nix
