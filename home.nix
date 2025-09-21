@@ -78,6 +78,8 @@
   };
 
   programs = {
+    nix-index.enable = true;
+    nix-index-database.comma.enable = true;
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
 
