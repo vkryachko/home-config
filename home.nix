@@ -22,9 +22,12 @@
     # # "Hello, world!" when run.
     # pkgs.hello
 
-    pkgs.nix
+    # pkgs.nix
     pkgs.which
     pkgs.nixfmt
+    pkgs.brave
+    pkgs.nodejs
+    pkgs.ripgrep
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -55,6 +58,12 @@
     # '';
   };
 
+  home.sessionPath = [
+    "$HOME/.nix-profile/bin"
+    "$HOME/.nix-profile/share/man"
+    "/nix/var/nix/profiles/default/bin"
+  ];
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
   # shell provided by Home Manager. If you don't want to manage your shell
@@ -72,12 +81,17 @@
   #  /etc/profiles/per-user/vkryachko/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    PATH = "~/.nix-profile/bin:$PATH";
-    MANPATH = "$HOME/.nix-profile/share/man:$(manpath)";
-    EDITOR = "${pkgs.helix}/bin/hx";
   };
 
   programs = {
+    nixvim = {
+      enable = true;
+      defaultEditor = true;
+      imports = [ ./programs/nixvim ];
+      viAlias = true;
+      vimAlias = true;
+      vimdiffAlias = true;
+    };
     nix-index.enable = true;
     nix-index-database.comma.enable = true;
     # Let Home Manager install and manage itself.
@@ -90,6 +104,29 @@
     man = {
       enable = true;
       # generateCaches = true;
+    };
+    tmux = {
+
+      enable = true;
+      plugins = with pkgs.tmuxPlugins; [
+        power-theme
+        vim-tmux-navigator
+      ];
+      shortcut = "a";
+      baseIndex = 1;
+      newSession = true;
+      escapeTime = 0;
+      mouse = true;
+      clock24 = true;
+      historyLimit = 50000;
+      keyMode = "vi";
+      customPaneNavigationAndResize = true;
+
+      extraConfig = ''
+        bind | split-window -h -c "#{pane_current_path}"
+        bind - split-window -v -c "#{pane_current_path}"
+        bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
+      '';
     };
   };
 

@@ -10,6 +10,10 @@
     };
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -17,6 +21,7 @@
       nixpkgs,
       home-manager,
       nix-index-database,
+      nixvim,
       ...
     }:
     let
@@ -31,6 +36,7 @@
         # the path to your home.nix.
         modules = [
           nix-index-database.homeModules.nix-index
+          nixvim.homeModules.nixvim
           ./home.nix
           { home.sessionVariables.NIX_PATH = "nixpkgs=${nixpkgs}"; }
         ];

@@ -18,6 +18,11 @@ in
           "extend_to_line_end"
           "delete_selection"
         ];
+        C = [
+          "ensure_selections_forward"
+          "extend_to_line_end"
+          "change_selection"
+        ];
       };
 
       editor = {
