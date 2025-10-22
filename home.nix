@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -87,7 +87,17 @@
     git.enable = true;
     direnv.enable = true;
     bash.enable = true;
-    starship.enable = true;
+    starship = {
+      enable = true;
+      settings = lib.mkMerge [
+        (lib.importTOML "${pkgs.starship}/share/starship/presets/nerd-font-symbols.toml")
+        {
+          # Don't show gcloud login info (unnecessary clutter).
+          gcloud.disabled = true;
+        }
+      ];
+    };
+
     man.enable = true;
   };
 
