@@ -109,7 +109,8 @@
 
       enable = true;
       plugins = with pkgs.tmuxPlugins; [
-        power-theme
+        # power-theme
+        tokyo-night-tmux
         vim-tmux-navigator
       ];
       shortcut = "a";
