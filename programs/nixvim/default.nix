@@ -23,12 +23,19 @@ let
     flatten mapped;
 in
 {
-  imports = [
-    ./opts.nix
-    ./keymappings.nix
-    ./auto_cmds.nix
-    ./colors.nix
-  ]
-  ++ findPlugins ./plugins;
+  programs.nixvim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
 
+    imports = [
+      ./opts.nix
+      ./keymappings.nix
+      ./auto_cmds.nix
+      ./colors.nix
+    ]
+    ++ findPlugins ./plugins;
+  };
 }

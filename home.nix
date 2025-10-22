@@ -18,11 +18,6 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # pkgs.nix
     pkgs.which
     pkgs.nixfmt
     pkgs.brave
@@ -84,14 +79,6 @@
   };
 
   programs = {
-    nixvim = {
-      enable = true;
-      defaultEditor = true;
-      imports = [ ./programs/nixvim ];
-      viAlias = true;
-      vimAlias = true;
-      vimdiffAlias = true;
-    };
     nix-index.enable = true;
     nix-index-database.comma.enable = true;
     # Let Home Manager install and manage itself.
@@ -101,37 +88,12 @@
     direnv.enable = true;
     bash.enable = true;
     starship.enable = true;
-    man = {
-      enable = true;
-      # generateCaches = true;
-    };
-    tmux = {
-
-      enable = true;
-      plugins = with pkgs.tmuxPlugins; [
-        # power-theme
-        tokyo-night-tmux
-        vim-tmux-navigator
-      ];
-      shortcut = "a";
-      baseIndex = 1;
-      newSession = true;
-      escapeTime = 0;
-      mouse = true;
-      clock24 = true;
-      historyLimit = 50000;
-      keyMode = "vi";
-      customPaneNavigationAndResize = true;
-
-      extraConfig = ''
-        bind | split-window -h -c "#{pane_current_path}"
-        bind - split-window -v -c "#{pane_current_path}"
-        bind r source-file ~/.config/tmux/tmux.conf \; display "Reloaded!"
-      '';
-    };
+    man.enable = true;
   };
 
   imports = [
-    ./helix.nix
+    ./programs/helix.nix
+    ./programs/nixvim
+    ./programs/tmux.nix
   ];
 }
