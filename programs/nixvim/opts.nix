@@ -10,7 +10,7 @@
     softtabstop = 2;
     shiftwidth = 2; # Number of spaces used for each step of (auto)indent (local to buffer)
     expandtab = true; # Expand <Tab> to spaces in Insert mode (local to buffer)
-    smartindent = true; # Do clever autoindenting
+    autoindent = true; # Do clever autoindenting
 
     cursorline = true;
 
@@ -19,6 +19,8 @@
     termguicolors = true;
 
     showmode = false;
+
+    undofile = true;
 
   };
 }
