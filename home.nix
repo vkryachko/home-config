@@ -6,6 +6,18 @@
   home.username = "vkryachko";
   home.homeDirectory = "/Users/vkryachko";
 
+  home.shellAliases = {
+    ls = "ls --color=auto";
+    dir = "dir --color=auto";
+    vdir = "vdir --color=auto";
+    grep = "grep --color=auto";
+    fgrep = "fgrep --color=auto";
+    egrep = "egrep --color=auto";
+    ll = "ls -l";
+    la = "ls -A";
+    l = "ls -CF";
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -86,7 +98,12 @@
 
     git.enable = true;
     direnv.enable = true;
-    bash.enable = true;
+    bash = {
+      enable = true;
+      profileExtra = ''
+        source /etc/bash_completion.d/hgd
+      '';
+    };
     starship = {
       enable = true;
       settings = lib.mkMerge [
